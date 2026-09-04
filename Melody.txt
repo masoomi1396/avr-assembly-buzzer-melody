@@ -1,0 +1,254 @@
+.device atmega328p
+.equ DDRB = 4
+.equ PORTB = 5
+main:
+    ldi r16,$30 ; putting pin 12 address
+    out DDRB,r16 ; making it out put
+
+repeat: ;Calling NOTE to make music
+    rcall NOTE_C
+    rcall NOTE_C
+    rcall NOTE_G
+    rcall NOTE_G
+    rcall NOTE_A
+    rcall NOTE_A
+    rcall NOTE_G
+    rcall NOTE_F
+    rcall NOTE_F
+    rcall NOTE_E
+    rcall NOTE_E
+    rcall NOTE_D
+    rcall NOTE_D
+    rcall NOTE_C
+rjmp repeat ; start over
+
+
+; Notes
+
+NOTE_C:
+    ldi r20, 130
+    NOTE_C_LOOP:
+        ;NOTE C Part
+        ldi r16,$30 ; putting 5v inside of it (using 1 for the pin 12)
+        out PORTB,r16 ; making it happen
+        rcall NOTE_C_DELAY ; delay for some time
+        ldi r16,$00 ; putting 0v inside of it (using 0 for the pin 12)
+        out PORTB, r16 ; making it happen
+        rcall NOTE_C_DELAY ; delay it for some time
+        dec r20
+        brne NOTE_C_LOOP
+    ret
+
+NOTE_D:
+    ldi r20, 145
+    NOTE_D_LOOP:
+        ;NOTE D Part
+        ldi r16,$30
+        out PORTB,r16
+        rcall NOTE_D_DELAY
+        ldi r16,$00
+        out PORTB, r16
+        rcall NOTE_D_DELAY
+        dec r20
+        brne NOTE_D_LOOP
+    ret
+
+NOTE_E:
+    ldi r20, 160
+    NOTE_E_LOOP:
+        ;NOTE E Part
+        ldi r16,$30
+        out PORTB,r16
+        rcall NOTE_E_DELAY
+        ldi r16,$00
+        out PORTB, r16
+        rcall NOTE_E_DELAY
+        dec r20
+        brne NOTE_E_LOOP
+    ret
+
+NOTE_F:
+    ldi r20, 175
+    NOTE_F_LOOP:
+        ;NOTE F Part
+        ldi r16,$30
+        out PORTB,r16
+        rcall NOTE_F_DELAY
+        ldi r16,$00
+        out PORTB, r16
+        rcall NOTE_F_DELAY
+        dec r20
+        brne NOTE_F_LOOP
+    ret
+
+NOTE_G:
+    ldi r20, 195
+    NOTE_G_LOOP:
+        ;NOTE G Part
+        ldi r16,$30
+        out PORTB,r16
+        rcall NOTE_G_DELAY
+        ldi r16,$00
+        out PORTB, r16
+        rcall NOTE_G_DELAY
+        dec r20
+        brne NOTE_G_LOOP
+    ret
+
+NOTE_A:
+    ldi r20, 220
+    NOTE_A_LOOP:
+        ;NOTE A Part
+        ldi r16,$30
+        out PORTB,r16
+        rcall NOTE_A_DELAY
+        ldi r16,$00
+        out PORTB, r16
+        rcall NOTE_A_DELAY
+        dec r20
+        brne NOTE_A_LOOP
+    ret
+
+NOTE_B:
+    ldi r20, 220
+    NOTE_B_LOOP:
+        ;NOTE B Part
+        ldi r16,$30
+        out PORTB,r16
+        rcall NOTE_B_DELAY
+        ldi r16,$00
+        out PORTB, r16
+        rcall NOTE_B_DELAY
+        dec r20
+        brne NOTE_B_LOOP
+    ret
+
+; This is a nested for (Supposedly)
+NOTE_C_DELAY: ; name (label) of the loop or function
+    ldi r17, 1 ; first FOR counter
+NOTE_C_1:
+    ldi r18, 40 ; second FOR counter
+NOTE_C_2:
+    ldi r19, 250 ; third FOR counter
+NOTE_C_3:
+    dec r19 ; it decreases until 0 (inner loop of our nested loop)
+    brne NOTE_C_3 ; it checks whether r18 is 0 or not and continue if it was 
+
+    dec r18 ; it decreases until 0 (Middle inner loop)
+    brne NOTE_C_2; if it was not 0 then it will again set the value into the r18
+
+    dec r17 ; it decreases until 0 (outer loop)
+    brne NOTE_C_1
+
+    ret ; if the r17 is zero then the loop is over and it goes to the rcall and continues 
+
+
+NOTE_D_DELAY: ; same thing as NOTE1 but with different counter and delay
+    ldi r17, 1
+NOTE_D_1:
+    ldi r18, 36
+NOTE_D_2:
+    ldi r19, 250
+NOTE_D_3:
+    dec r19
+    brne NOTE_D_3
+
+    dec r18
+    brne NOTE_D_2
+
+    dec r17
+    brne NOTE_D_1
+
+    ret
+
+
+NOTE_E_DELAY: ; same thing as NOTE but with different counter and delay
+    ldi r17, 1
+NOTE_E_1:
+    ldi r18, 32
+NOTE_E_2:
+    ldi r19, 250
+NOTE_E_3:
+    dec r19
+    brne NOTE_E_3
+
+    dec r18
+    brne NOTE_E_2
+
+    dec r17
+    brne NOTE_E_1
+
+    ret
+
+NOTE_F_DELAY: ; same thing as NOTE1 but with different counter and delay
+    ldi r17, 1
+NOTE_F_1:
+    ldi r18, 30
+NOTE_F_2:
+    ldi r19, 250
+NOTE_F_3:
+    dec r19
+    brne NOTE_F_3
+
+    dec r18
+    brne NOTE_F_2
+
+    dec r17
+    brne NOTE_F_1
+
+    ret
+
+
+NOTE_G_DELAY: ; same thing as NOTE but with different counter and delay
+    ldi r17, 1
+NOTE_G_1:
+    ldi r18, 27
+NOTE_G_2:
+    ldi r19, 250
+NOTE_G_3:
+    dec r19
+    brne NOTE_G_3
+
+    dec r18
+    brne NOTE_G_2
+
+    dec r17
+    brne NOTE_G_1
+
+    ret
+
+NOTE_A_DELAY: ; same thing as NOTE but with different counter and delay
+    ldi r17, 1
+NOTE_A_1:
+    ldi r18, 24
+NOTE_A_2:
+    ldi r19, 250
+NOTE_A_3:
+    dec r19
+    brne NOTE_A_3
+
+    dec r18
+    brne NOTE_A_2
+
+    dec r17
+    brne NOTE_A_1
+
+    ret
+
+NOTE_B_DELAY: ; same thing as NOTE but with different counter and delay
+    ldi r17, 1
+NOTE_B_1:
+    ldi r18, 21
+NOTE_B_2:
+    ldi r19, 250
+NOTE_B_3:
+    dec r19
+    brne  NOTE_B_3
+
+    dec r18
+    brne NOTE_B_2
+
+    dec r17
+    brne NOTE_B_1
+
+    ret
